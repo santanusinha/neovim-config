@@ -34,4 +34,16 @@ keymap.set("n", "<leader>bx", ":bd!<CR>", { desc = "[B]uffer [C]lose" })
 
 -- The following are for plugins.
 -- We keep everything in the same file to ensure that we do not override
-keymap.set("n", "<leader>fs", ":Neotree reveal<CR>", { desc = "[F]iles Tree [S]how" })
+
+-- NeoTree (lua/plugins/neo-tree.lua)
+keymap.set("n", "<S-t>", ":Neotree reveal<CR>", { desc = "S]how [T]ree" })
+
+-- Telescope 
+keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = "[F]ind [F]iles" })
+keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = "[F]ind [G]rep" })
+keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = "[F]ind [H]elp Tags" })
+-- keymap.set('n', '<leader>fs', require('telescope.builtin').lsp_document_symbols, { desc = "[F]ind [S]ymbol" })
+-- keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_incoming_calls, { desc = "Find [G]rep" }) -- fuzzy find LSP/incoming calls
+-- keymap.set('n', '<leader>fm', function() require('telescope.builtin').treesitter({symbols={'function', 'method'}}) end) -- fuzzy find methods in current class
+
+
