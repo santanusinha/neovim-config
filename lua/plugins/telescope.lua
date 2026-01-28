@@ -39,7 +39,7 @@ return {
                             -- use <cltr> + k to go to the previous preview
                             ["<C-k>"] = actions.move_selection_previous,
                         }
-                    },
+            },
                     -- load the ui-select extension
                     require("telescope").load_extension("ui-select")
                 })
@@ -49,9 +49,6 @@ return {
     opts = {
         defaults = {
             layout_config = {
-                -- vertical = {
-                --     width = 0.75
-                -- }
             },
             path_display = {
                     filename_first = {
@@ -62,6 +59,16 @@ return {
         pickers = {
             find_files = {
                 theme = "dropdown",
+            },
+            find_grep = {
+                theme = "dropdown",
+            },
+            lsp_document_symbols = {
+                theme = "cursor"
+            }
+            ,
+            lsp_incoming_calls = {
+                theme = "cursor"
             },
             -- TODO::ACCORDING TO CONTEXT
         },
