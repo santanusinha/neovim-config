@@ -59,9 +59,9 @@ opt.ignorecase = true -- ignore case in search
 opt.smartcase = true -- match case if explicitly stated
 
 -- Diagnostics display
-vim.diagnostic.config {                                                                                                  
+vim.diagnostic.config {
     float = { border = "rounded" }, -- add border to diagnostic popups
-    virtual_text = true,
+    -- virtual_text = true,
     signs = true,
     underline = true,
     update_in_insert = false,
