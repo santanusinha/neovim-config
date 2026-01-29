@@ -60,17 +60,24 @@ keymap.set('n', '<leader>fs', require('telescope.builtin').current_buffer_fuzzy_
 keymap.set('n', '<leader>fm', function() require('telescope.builtin').treesitter({symbols={'function', 'method'}}) end, { desc = "[F]ind [M]ethods" })
 
 -- Diagnostic
-keymap.set('n', '<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Dia[g]nostic [L]ist" })
+keymap.set('n', '<leader>gl', '<cmd>Trouble diagnostics toggle<CR>', { desc = "Dia[g]nostic [L]ist" })
+keymap.set('n', '<leader>gL', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Dia[g]nostic [L]ist" })
 keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { desc = "Dia[g]nostic [N]ext" })
 keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', { desc = "Dia[g]nostic [P]revious" })
 
 -- Code/LSP
-keymap.set('n', '<leader>ch', '<cmd>lua vim.lsp.buf.hover()<CR>', { desc = "[C]ode [H]over" })
-keymap.set('n', '<leader>cd', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = "[C]ode [d]efinition" })
-keymap.set('n', '<leader>cD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { desc = "[C]ode [D]eclaration" })
-keymap.set('n', '<leader>ci', '<cmd>lua vim.lsp.buf.implementation()<CR>', { desc = "[C]ode [I]mplementation" })
-keymap.set('n', '<leader>ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { desc = "[C]ode [T]ype Definition" })
-keymap.set('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', { desc = "[C]ode [R]eferences" })
+keymap.set('n', '<leader>ch', '<cmd>lua vim.lsp.buf.hover()<CR>', { desc = "[C]ode [H]elp" })
+--keymap.set('n', '<leader>cd', '<cmd>lua vim.lsp.buf.definition()<CR>', { desc = "[C]ode [d]efinition" })
+keymap.set('n', '<leader>cd', '<cmd>Trouble lsp_definitions toggle<CR>', { desc = "[C]ode [d]efinition" })
+ -- keymap.set('n', '<leader>cD', '<cmd>lua vim.lsp.buf.declaration()<CR>', { desc = "[C]ode [D]eclaration" })
+keymap.set('n', '<leader>cD', '<cmd>Trouble lsp_declarations toggle<CR>', { desc = "[C]ode [D]eclaration" })
+-- keymap.set('n', '<leader>ci', '<cmd>lua vim.lsp.buf.implementation()<CR>', { desc = "[C]ode [I]mplementation" })
+keymap.set('n', '<leader>ci', '<cmd>Trouble lsp_implementations toggle<CR>', { desc = "[C]ode [I]mplementation" })
+-- keymap.set('n', '<leader>ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>', { desc = "[C]ode [T]ype Definition" })
+keymap.set('n', '<leader>ct', '<cmd>Trouble lsp_type_definitions toggle<CR>', { desc = "[C]ode [T]ype Definition" })
+-- keymap.set('n', '<leader>cr', '<cmd>lua vim.lsp.buf.references()<CR>', { desc = "[C]ode [R]eferences" })
+keymap.set('n', '<leader>cr', '<cmd>Trouble lsp_references toggle<CR>', { desc = "[C]ode [R]eferences" })
+-- Signature help is fine
 keymap.set('n', '<leader>cs', '<cmd>lua vim.lsp.buf.signature_help()<CR>', { desc = "[C]ode Element [S]ignature" })
 keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<CR>', { desc = "[R]ename Variable (Shift-F6)" })
 keymap.set('n', '<S-F6>',   '<cmd>lua vim.lsp.buf.rename()<CR>', { desc = "[R]ename Variable (Shift-F6)" })
