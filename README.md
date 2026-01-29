@@ -61,6 +61,8 @@ A professional Neovim configuration optimized for Java and Lua development. This
 | barbecue | A VS Code-like winbar showing context/breadcrumbs. |
 | fidget.nvim | Standalone UI for LSP progress notifications. |
 | nvim-notify | A fancy, configurable notification manager. |
+| nvim-web-devicons | Nerd Font icons for Neovim plugins. |
+| nui.nvim | UI Component Library for Neovim. |
 
 ### Navigation and Search
 | Plugin | Description |
@@ -69,16 +71,33 @@ A professional Neovim configuration optimized for Java and Lua development. This
 | telescope.nvim | Highly extendable fuzzy finder over lists (files, grep, etc.). |
 | trouble.nvim | A pretty list for showing diagnostics and LSP results. |
 | snacks.nvim | A collection of small, high-quality QoL utilities. |
+| plenary.nvim | All the lua functions you don't want to write twice. |
 
 ### LSP and Development
 | Plugin | Description |
 | :--- | :--- |
 | nvim-lspconfig | Quickstart configurations for the Nvim LSP client. |
 | mason.nvim | Portable package manager for LSP servers, DAP servers, linters, and formatters. |
+| mason-lspconfig.nvim | Extension to mason.nvim to make it easier to use lspconfig. |
+| mason-tool-installer.nvim | Install and upgrade third party tools (LSP servers, DAP servers, etc.). |
 | none-ls.nvim | Use Neovim as a language server to inject LSP diagnostics, code actions, and more. |
+| none-ls-extras.nvim | Extra sources for none-ls.nvim. |
+| lazydev.nvim | Faster Lua development with Neovim setup. |
+| lsp-progress.nvim | A customizable LSP progress statusline component. |
+| nvim-navic | A simple statusline component that shows the current code context. |
 | nvim-jdtls | Extensions for the built-in LSP support for Eclipse JDT.LS. |
 | nvim-cmp | A modular completion engine for Neovim. |
+| cmp-nvim-lsp | nvim-cmp source for neovim builtin LSP client. |
+| cmp-buffer | nvim-cmp source for buffer words. |
+| cmp-path | nvim-cmp source for path. |
+| cmp-cmdline | nvim-cmp source for vim's cmdline. |
+| LuaSnip | Snippet Engine for Neovim written in Lua. |
+| cmp_luasnip | luasnip completion source for nvim-cmp. |
+| friendly-snippets | Set of preconfigured snippets for different languages. |
 | nvim-treesitter | Treesitter configurations and abstraction layer for advanced highlighting. |
+| nvim-treesitter-textobjects | Syntax aware text-objects, select, move, swap, and peek support. |
+| nvim-ts-autotag | Use treesitter to autoclose and autorename html tag. |
+| nvim-ts-context-commentstring | Neovim plugin for setting the commentstring based on the cursor location. |
 
 ### Debugging (DAP)
 | Plugin | Description |
@@ -86,6 +105,17 @@ A professional Neovim configuration optimized for Java and Lua development. This
 | nvim-dap | Debug Adapter Protocol (DAP) client implementation. |
 | nvim-dap-ui | A UI for nvim-dap. |
 | nvim-dap-virtual-text | Virtual text support for nvim-dap. |
+| telescope-dap.nvim | Integration for nvim-dap with telescope.nvim. |
+| nvim-nio | A library for asynchronous IO in Neovim. |
+
+### Utilities
+| Plugin | Description |
+| :--- | :--- |
+| Comment.nvim | Smart and powerful comment plugin for neovim. |
+| nvim-autopairs | Autopairs for neovim written by lua. |
+| bigfile.nvim | Optimize neovim's performance when opening large files. |
+| which-key.nvim | Displays a popup with possible key bindings of the command you started typing. |
+| lazy.nvim | A modern plugin manager for Neovim. |
 
 ## Key Bindings
 
