@@ -186,6 +186,40 @@ local config = {
         require("jdtls.dap").setup_dap_main_class_configs()
     end
 
+    local function run_java_app_with_args()
+        local jdtls_dap = require('jdtls.dap')
+        -- Discover main classes using jdtls
+        jdtls_dap.fetch_main_configs(nil, function(configs)
+            if not configs or #configs == 0 then
+                vim.notify("No main classes found")
+                return
+            end
+
+            -- Pick one class
+            require('jdtls.ui').pick_one_async(
+                configs,
+                'Main Class> ',
+                function(config) return config.name end,
+                function(selected_config)
+                    if not selected_config then return end
+
+                    -- Ask for input parameters
+                    vim.ui.input({ prompt = 'Program arguments: ' }, function(args)
+                        local dap = require('dap')
+                        -- Merge selected config with args
+                        selected_config.args = args or ""
+                        
+                        -- Run using DAP
+                        dap.run(selected_config)
+                    end)
+                end
+            )
+        end)
+    end
+
+    -- Create the command
+    vim.api.nvim_buf_create_user_command(0, 'JavaRunMain', run_java_app_with_args, { desc = 'Run Java main with args' })
+
     -- This starts a new client & server, or attaches to an existing client & server based on the `root_dir`.
     jdtls.start_or_attach(config)
 
