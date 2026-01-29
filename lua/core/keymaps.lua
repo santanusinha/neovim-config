@@ -14,6 +14,11 @@ keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 -- Show keymaps
 keymap.set("n", "<S-k>", require('telescope.builtin').keymaps, { desc = "[S]how [K]eymap" })
 
+-- Code commenting
+keymap.set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment Line" })
+keymap.set("v", "<leader>/", "<Plug>(comment_toggle_blockwise_visual)", { desc = "Comment Selected" })
+
+ 
 -- Split Management
 keymap.set("n", "<leader>w|", ":vsplit<CR>", { desc = "[W]indow Split [V]ertical" })
 keymap.set("n", "<leader>w_", ":split<CR>", { desc = "[W]indow Split [H]orizontal" })
