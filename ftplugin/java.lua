@@ -186,11 +186,17 @@ local config = {
         require("jdtls.dap").setup_dap_main_class_configs()
     end
 
-    local function run_java_app_with_args()
+    local function run_java_app_with_args(opts)
         local jdtls_dap = require('jdtls.dap')
         local root_dir = require('jdtls.setup').find_root({ ".git", "mvnw", "gradlew" })
         local config_dir = root_dir .. "/jdtls-run-configs"
-        local config_file = config_dir .. "/run-config.json"
+        
+        -- Determine config filename from command arguments or use default
+        local arg_filename = opts.args ~= "" and opts.args or "run-config.json"
+        if not arg_filename:match("%.json$") then
+            arg_filename = arg_filename .. ".json"
+        end
+        local config_file = config_dir .. "/" .. arg_filename
 
         -- Ensure directory exists
         if vim.fn.isdirectory(config_dir) == 0 then
@@ -210,7 +216,6 @@ local config = {
 
         if existing_config then
             -- Run with existing config
-            -- We still need to fetch main configs to get the full classpaths etc for the specific main class
             jdtls_dap.fetch_main_configs(nil, function(configs)
                 local found = false
                 for _, config in ipairs(configs) do
@@ -222,12 +227,10 @@ local config = {
                     end
                 end
                 if not found then
-                    vim.notify("Saved main class " .. existing_config.mainClass .. " not found. Picking new one.", vim.log.levels.WARN)
-                    -- Reset and trigger normal flow? Or just notify?
-                    -- For now, let's just fall back to normal flow
+                    vim.notify("Saved main class " .. existing_config.mainClass .. " not found in " .. arg_filename .. ". Picking new one.", vim.log.levels.WARN)
                 end
             end)
-            if existing_config then return end -- If we already handled it, don't proceed
+            if existing_config then return end
         end
 
         -- Discover main classes using jdtls
@@ -260,6 +263,7 @@ local config = {
                         if f then
                             f:write(vim.fn.json_encode(save_data))
                             f:close()
+                            vim.notify("Config saved to " .. arg_filename)
                         end
 
                         -- Run using DAP
@@ -270,8 +274,11 @@ local config = {
         end)
     end
 
-    -- Create the command
-    vim.api.nvim_buf_create_user_command(0, 'JavaRunMain', run_java_app_with_args, { desc = 'Run Java main with args' })
+    -- Create the command with optional argument
+    vim.api.nvim_buf_create_user_command(0, 'JavaRunMain', run_java_app_with_args, { 
+        desc = 'Run Java main with args',
+        nargs = '?'
+    })
 
     -- This starts a new client & server, or attaches to an existing client & server based on the `root_dir`.
     jdtls.start_or_attach(config)
