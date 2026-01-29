@@ -55,9 +55,9 @@ keymap.set('n', '<leader>fs', require('telescope.builtin').current_buffer_fuzzy_
 keymap.set('n', '<leader>fm', function() require('telescope.builtin').treesitter({symbols={'function', 'method'}}) end, { desc = "[F]ind [M]ethods" })
 
 -- Diagnostic
-keymap.set('n', '<leader>dl', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "[D]iagnostic [L]ist" })
-keymap.set('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { desc = "[D]iagnostic [N]ext" })
-keymap.set('n', '<leader>dn', '<cmd>lua vim.diagnostic.goto_next()<CR>', { desc = "[D]iagnostic [P]revious" })
+keymap.set('n', '<leader>gl', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Dia[g]nostic [L]ist" })
+keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { desc = "Dia[g]nostic [N]ext" })
+keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', { desc = "Dia[g]nostic [P]revious" })
 
 -- Code/LSP
 keymap.set('n', '<leader>ch', '<cmd>lua vim.lsp.buf.hover()<CR>', { desc = "[C]ode [H]over" })
@@ -74,32 +74,34 @@ keymap.set('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', { desc =
 keymap.set('n', '<leader>tr', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.buf.completion()<CR>')
 
--- Jetbrains binding
-keymap.set('n', '<C-F6>', '<cmd>lua vim.lsp.buf.rename()<CR>', { desc = "[R]ename " })
+-- Debugging: Breakpoint Management
+keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "[B]reakpoint [B]reak Toggle" })
+keymap.set("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>", { desc = "[B]reakpoint [C]ondition" })
+keymap.set("n", "<leader>bl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>", { desc = "[B]reakpoint With [L]og" })
+keymap.set("n", '<leader>br', "<cmd>lua require'dap'.clear_breakpoints()<cr>", { desc = "[B]reakpoint [R]emove" })
+keymap.set("n", '<leader>ba', '<cmd>Telescope dap list_breakpoints<cr>', { desc = "[B]reakpoint [L]ist" })
 
--- Filetype-specific keymaps (these can be done in the ftplugin directory instead if you prefer)
-keymap.set("n", '<leader>go', function()
-  if vim.bo.filetype == 'java' then
-    require('jdtls').organize_imports();
-  end
-end)
+keymap.set("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", { desc = "[D]ebugger [C]ontinue (F9)" })
+keymap.set("n", "<F9>", "<cmd>lua require'dap'.continue()<cr>", { desc = "[D]ebugger [C]ontinue" })
+keymap.set("n", "<leader>ds", "<cmd>lua require'dap'.step_over()<cr>", { desc = "[D]ebugger [S]tep Over (Shift-F8)" })
+keymap.set("n", "<S-F8>", "<cmd>lua require'dap'.step_over()<cr>", { desc = "[D]ebugger [S]tep Over" })
+keymap.set("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { desc = "[D]ebugger Step [I]nto (F7)" })
+keymap.set("n", "<F7>", "<cmd>lua require'dap'.step_into()<cr>", { desc = "[D]ebugger Step [I]nto" })
+keymap.set("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>", { desc = "[D]ebugger Step [O]ut (F8)" })
+keymap.set("n", "<F8>", "<cmd>lua require'dap'.step_out()<cr>", { desc = "[D]ebugger Step [O]ut" })
+keymap.set("n", '<leader>dd', function() require('dap').disconnect(); require('dapui').close(); end, { desc = "[D]ebugger " })
+keymap.set("n", '<leader>dx', function() require('dap').terminate(); require('dapui').close(); end, { desc = "[D]ebugger  E[x]it (Ctrl-Atl-F9)" })
+keymap.set("n", '<C-M-F9>', function() require('dap').terminate(); require('dapui').close(); end, { desc = "[D]ebugger  E[x]it (Ctrl-Atl-F9)" })
+-- We don't really want the repl to go away due to random keypresses
+-- keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", { desc = "[D]ebugger " })
+keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", { desc = "[D]ebugger Run [L]ast (Ctrl-Alt-F9)" })
+keymap.set("n", "<C-M-F9>", "<cmd>lua require'dap'.run_last()<cr>", { desc = "[D]ebugger Run [L]ast" })
+keymap.set("n", '<leader>dw', function() require "dap.ui.widgets".hover() end, { desc = "[D]ebugger [W]idgets" })
+keymap.set("n", '<leader>d?', function() local widgets = require "dap.ui.widgets"; widgets.centered_float(widgets.scopes) end, { desc = "[D]ebugger [F]loat" })
+keymap.set("n", '<leader>df', '<cmd>Telescope dap frames<cr>', { desc = "[D]ebugger " })
+keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>', { desc = "[D]ebugger [H]elp (Shift-F9)" })
+keymap.set("n", '<S-F9>', '<cmd>Telescope dap commands<cr>', { desc = "[D]ebugger [H]elp" })
+keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>', { desc = "[D]ebugger " })
+keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end, { desc = "[D]ebugger " })
 
-keymap.set("n", '<leader>gu', function()
-  if vim.bo.filetype == 'java' then
-    require('jdtls').update_projects_config();
-  end
-end)
-
-keymap.set("n", '<leader>tc', function()
-  if vim.bo.filetype == 'java' then
-    require('jdtls').test_class();
-  end
-end)
-
-keymap.set("n", '<leader>tm', function()
-  if vim.bo.filetype == 'java' then
-    require('jdtls').test_nearest_method();
-  end
-end)
-
-
+-- Filetype-specific keymaps are present in ftplugin/<filetype>.lua

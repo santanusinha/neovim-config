@@ -3,8 +3,9 @@ local home = vim.env.HOME -- Get the home directory
 
 local jdtls = require("jdtls")
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-local workspace_dir = home .. "/jdtls-workspace/" .. project_name
 local install_path = vim.fn.stdpath("data")
+local cache_path = vim.fn.stdpath("cache")
+local workspace_dir = cache_path .. "/jdtls-workspace/" .. project_name
 
 local system_os = "linux"
 
@@ -36,12 +37,26 @@ local keymap = vim.keymap
 keymap.set("n", '<leader>jo', require('jdtls').organize_imports, { desc = "[J]ava [O]rganize Imports"})
 keymap.set("n", '<C-M-o>', require('jdtls').organize_imports, { desc = "[J]ava [O]rganize Imports (Ctrl-Alt-O)"})
 
-keymap.set("n", '<leader>gu', require('jdtls').update_projects_config, { desc = "[J]ava [U]pdate/Resync mvn/gradle config"})
+keymap.set("n", '<leader>ju', require('jdtls').update_projects_config, { desc = "[J]ava [U]pdate/Resync mvn/gradle config"})
 
-keymap.set("n", '<leader>jt', require('jdtls').test_class, { desc = "[J]ava Run Test [C]lass (Shift-F8)"})
-keymap.set("n", '<S-F8>jt', require('jdtls').test_class, { desc = "[J]ava Run Test [C]lass"})
-keymap.set("n", '<leader>tc', require('jdtls').test_nearest_method, { desc = "[J]ava Run [T]est Method (Shift-F9)"})
-keymap.set("n", '<S-F9>tc', require('jdtls').test_nearest_method, { desc = "[J]ava Run [T]est Method"})
+-- Testing
+keymap.set("n", '<leader>jt', require('jdtls').test_class, { desc = "[J]ava Run Test [C]lass (Ctrl-Shift-F10)"})
+keymap.set("n", '<C-S-F10>', require('jdtls').test_class, { desc = "[J]ava Run Test [C]lass"})
+keymap.set("n", '<leader>tc', require('jdtls').test_nearest_method, { desc = "[J]ava Run [T]est Method (Ctrl-Shift-F9)"})
+keymap.set("n", '<C-S-F9>', require('jdtls').test_nearest_method, { desc = "[J]ava Run [T]est Method"})
+
+-- Extraction
+keymap.set("n", '<leader>jv', require('jdtls').extract_variable, { desc = "[J]ava Extract [V]ariable (Ctrl-Alt-v)"})
+keymap.set("n", '<C-M-v>', require('jdtls').extract_variable, { desc = "[J]ava Extract [V]ariable"})
+keymap.set("n", '<leader>jc', require('jdtls').extract_variable, { desc = "[J]ava Extract [C]onstant (Ctrl-Alt-c)"})
+keymap.set("n", '<C-M-c>', require('jdtls').extract_variable, { desc = "[J]ava Extract [C]onstant"})
+keymap.set("n", '<leader>jm', require('jdtls').extract_variable, { desc = "[J]ava Extract [M]ethod (Ctrl-Alt-m)"})
+keymap.set("n", '<C-M-m>', require('jdtls').extract_variable, { desc = "[J]ava Extract [M]ethod"})
+
+-- Code generation
+keymap.set("n", '<leader>ji', require('jdtls').extract_variable, { desc = "[J]ava Extract [V]ariable (Ctrl-Alt-v)"})
+
+
 
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
@@ -70,9 +85,8 @@ local config = {
         workspace_dir,
     },
 
-    -- This is the default if not provided, you can remove it. Or adjust as needed.
-    -- One dedicated LSP server & client will be started per unique root_dir
-    root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "pom.xml", "build.gradle" }),
+    -- we find the root directory by finding the source root. Otherwise it will cok up badly for multi-module projects
+    root_dir = require("jdtls.setup").find_root({ ".git" }),
 
     -- Here you can configure eclipse.jdt.ls specific settings
     -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -120,8 +134,7 @@ local config = {
                 enabled = true,
                 -- Formatting works by default, but you can refer to a specific file/URL if you choose
                 settings = {
-                    url = install_path .. "/extras/java-checkstyle.xml",
-                    profile = "GoogleStyle",
+                        url = install_path .. "/extras/java-checkstyle.xml"
                     },
                 },
                 completion = {
