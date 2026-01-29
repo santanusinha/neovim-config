@@ -42,7 +42,7 @@ keymap.set("n", "<leader>bx", ":bd!<CR>", { desc = "[B]uffer [C]lose" })
 keymap.set("n", "<leader>bl", require('telescope.builtin').buffers, { desc = "[B]uffer [L]ist" })
 
 -- Terminal
-keymap.set("n", "<leader>to", ":sp | resize 30 | terminal<CR>", { desc = "[T]erminal [O]pen" })
+keymap.set("n", "<leader>to", ":sp | resize 30 | terminal<CR>i", { desc = "[T]erminal [O]pen" })
 
 -- The following are for plugins.
 -- We keep everything in the same file to ensure that we do not override
