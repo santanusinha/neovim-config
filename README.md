@@ -149,3 +149,16 @@ The leader key is set to `Space`.
 - `<leader>jt`: Run test class.
 - `<leader>tc`: Run nearest test method.
 - `<leader>jv`: Extract variable.
+- `jr` or `<S-F10>`: Run Java main with arguments (prompts for config filename).
+
+## Java Run Configurations
+
+This configuration includes a custom command `:JavaRunMain` (aliased to `jr` and `<S-F10>`) to run Java applications with persistent parameters.
+
+### How to use:
+1.  **Select & Run**: Press `jr` in any Java file. You will be prompted to select a `main` class and enter program arguments.
+2.  **Persistence**: The configuration is saved in `jdtls-run-configs/run-config.json` at your project root. Subsequent runs using `jr` + `<CR>` will use these saved settings automatically.
+3.  **Multiple Configs**: You can maintain multiple run configurations by providing a filename:
+    - `jr my-app<CR>` will save/load from `my-app.json`.
+    - This is useful for testing different command-line scenarios or multiple entry points.
+4.  **Reset**: To change a saved configuration, either delete the corresponding JSON file in `jdtls-run-configs/` or simply provide a new filename.

@@ -56,8 +56,9 @@ keymap.set("n", '<C-M-m>', require('jdtls').extract_variable, { desc = "[J]ava E
 -- Code generation
 keymap.set("n", '<leader>ji', require('jdtls').extract_variable, { desc = "[J]ava Extract [V]ariable (Ctrl-Alt-v)"})
 
-
-
+-- Keymaps for JavaRunMain
+keymap.set("n", "jr", ":JavaRunMain ", { desc = "[J]ava [R]un main with args (prompt for config) (Shift-F10)" })
+keymap.set("n", "<S-F10>", ":JavaRunMain ", { desc = "[J]ava [R]un main with args (prompt for config)" })
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
