@@ -91,6 +91,10 @@ A professional Neovim configuration optimized for Java and Lua development. This
 
 The leader key is set to `Space`.
 
+### Learning Key Bindings
+- **Which-key**: This configuration includes [which-key.nvim](https://github.com/folke/which-key.nvim), which automatically displays a popup with available keybindings as you type.
+- **Search Keymaps**: Press `<Shift-K>` to open a searchable list of all registered keybindings via Telescope.
+
 ### Navigation
 - `<S-t>`: Toggle Neo-tree file explorer.
 - `<leader>ff`: Find files.
