@@ -61,7 +61,7 @@ keymap.set('n', '<leader>fm', function() require('telescope.builtin').treesitter
 
 -- Diagnostic
 keymap.set('n', '<leader>gl', '<cmd>Trouble diagnostics toggle<CR>', { desc = "Dia[g]nostic [L]ist" })
-keymap.set('n', '<leader>gL', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Dia[g]nostic [L]ist" })
+keymap.set('n', '<leader>gL', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Dia[g]nostic [L]ist Floating" })
 keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { desc = "Dia[g]nostic [N]ext" })
 keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', { desc = "Dia[g]nostic [P]revious" })
 
