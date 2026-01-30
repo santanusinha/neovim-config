@@ -7,7 +7,7 @@ opt.number = true -- line number
 opt.relativenumber = true -- line numbers relative to the current line (helps in yank etc)
 
 -- Left Gutter
-opt.numberwidth = 4 -- gutter for showing line numbers (default)
+-- opt.numberwidth = 4 -- gutter for showing line numbers (default)
 opt.signcolumn = "yes" -- always show sign column
 
 -- Tab Key Behaviour
