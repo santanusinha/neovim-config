@@ -31,7 +31,7 @@ opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Utilize Treesitter folds
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 opt.backup = false -- disable backup file creation
-opt.clipboard:append("unnamedplus") -- enable system clipboard access
+-- opt.clipboard:append("unnamedplus") -- enable system clipboard access
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 opt.fileencoding = "utf-8" -- set file encoding to UTF-8
 opt.mouse = "a" -- enable mouse support
@@ -39,8 +39,8 @@ opt.showmode = false -- hide mode display
 opt.backspace = "indent,eol,start" -- This is default anyways but still
 
 -- Split
-opt.splitbelow = true -- force horizontal splits below current window
-opt.splitright = true -- force vertical splits right of current window
+-- opt.splitbelow = true -- force horizontal splits below current window
+-- opt.splitright = true -- force vertical splits right of current window
 
 -- Appearance
 opt.termguicolors = true -- enable term GUI colors

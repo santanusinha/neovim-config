@@ -59,9 +59,16 @@ keymap.set('n', '<leader>fi', require('telescope.builtin').lsp_incoming_calls, {
 keymap.set('n', '<leader>fs', require('telescope.builtin').current_buffer_fuzzy_find, { desc = "[F]ind [S]ymbol in current file"})
 keymap.set('n', '<leader>fm', function() require('telescope.builtin').treesitter({symbols={'function', 'method'}}) end, { desc = "[F]ind [M]ethods" })
 
+-- Trouble plugin
+keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle filter.buf=0<cr><CR>', { desc = "Trouble in current file" })
+keymap.set('n', '<leader>xX', '<cmd>Trouble diagnostics toggle<CR>', { desc = "Trouble Everywhere(alt: gl)" })
+keymap.set('n', '<leader>xL', '<cmd>Trouble loclist toggle<CR>', { desc = "Trouble Location List" })
+keymap.set('n', '<leader>xQ', '<cmd>Trouble loclist toggle<CR>', { desc = "Trouble Location List" })
+
 -- Diagnostic
-keymap.set('n', '<leader>gl', '<cmd>Trouble diagnostics toggle<CR>', { desc = "Dia[g]nostic [L]ist" })
-keymap.set('n', '<leader>gL', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Dia[g]nostic [L]ist Floating" })
+keymap.set('n', '<leader>gl', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', { desc = "Dia[g]nostic [l]ist in Current File" })
+keymap.set('n', '<leader>gL', '<cmd>Trouble diagnostics toggle<CR>', { desc = "Dia[g]nostic [L]ist" })
+--keymap.set('n', '<leader>gL', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = "Dia[g]nostic [L]ist Floating" })
 keymap.set('n', '<leader>gp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { desc = "Dia[g]nostic [N]ext" })
 keymap.set('n', '<leader>gn', '<cmd>lua vim.diagnostic.goto_next()<CR>', { desc = "Dia[g]nostic [P]revious" })
 
