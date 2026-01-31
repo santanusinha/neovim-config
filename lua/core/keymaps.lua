@@ -18,7 +18,6 @@ keymap.set("n", "<S-k>", require('telescope.builtin').keymaps, { desc = "[S]how 
 keymap.set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment Line" })
 keymap.set("v", "<leader>/", "<Plug>(comment_toggle_blockwise_visual)", { desc = "Comment Selected" })
 
- 
 -- Split Management
 keymap.set("n", "<leader>w|", ":vsplit<CR>", { desc = "[W]indow Split [V]ertical" })
 keymap.set("n", "<leader>w_", ":split<CR>", { desc = "[W]indow Split [H]orizontal" })
@@ -122,5 +121,14 @@ keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>', { desc = "[D]eb
 keymap.set("n", '<S-F9>', '<cmd>Telescope dap commands<cr>', { desc = "[D]ebugger [H]elp" })
 keymap.set("n", '<leader>dh', '<cmd>Telescope dap commands<cr>', { desc = "[D]ebugger " })
 keymap.set("n", '<leader>de', function() require('telescope.builtin').diagnostics({default_text=":E:"}) end, { desc = "[D]ebugger " })
+
+-- Copilot
+vim.keymap.set('n', '<leader>ct', function()
+    require("copilot.suggestion").toggle_auto_trigger()
+end, { desc = "[C]opilot [T]oggle" })
+
+vim.keymap.set('i', '<M-CR>', function()
+    require("copilot.suggestion").accept()
+end, { desc = "Copilot Accept" })
 
 -- Filetype-specific keymaps are present in ftplugin/<filetype>.lua

@@ -7,7 +7,7 @@ opt.number = true -- line number
 opt.relativenumber = true -- line numbers relative to the current line (helps in yank etc)
 
 -- Left Gutter
--- opt.numberwidth = 4 -- gutter for showing line numbers (default)
+opt.numberwidth = 2 -- gutter for showing line numbers (default)
 opt.signcolumn = "yes" -- always show sign column
 
 -- Tab Key Behaviour
@@ -39,8 +39,8 @@ opt.showmode = false -- hide mode display
 opt.backspace = "indent,eol,start" -- This is default anyways but still
 
 -- Split
--- opt.splitbelow = true -- force horizontal splits below current window
--- opt.splitright = true -- force vertical splits right of current window
+opt.splitbelow = true -- force horizontal splits below current window
+opt.splitright = true -- force vertical splits right of current window
 
 -- Appearance
 opt.termguicolors = true -- enable term GUI colors

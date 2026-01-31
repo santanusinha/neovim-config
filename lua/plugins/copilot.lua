@@ -8,11 +8,6 @@ return {
       suggestion = {
         enabled = true,
         auto_trigger = true,
-        keymap = {
-          accept = "<Tab>", -- Accept with Tab
-          next = "<M-]>",
-          prev = "<M-[>",
-        },
       },
       panel = { enabled = false },
     },
