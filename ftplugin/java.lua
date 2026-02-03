@@ -3,9 +3,11 @@ local home = vim.env.HOME -- Get the home directory
 
 local jdtls = require("jdtls")
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local vim_config_dir = vim.fn.stdpath("config")
 local install_path = vim.fn.stdpath("data")
 local cache_path = vim.fn.stdpath("cache")
 local workspace_dir = cache_path .. "/jdtls-workspace/" .. project_name
+
 
 local system_os = "linux"
 
@@ -26,6 +28,10 @@ local bundles = {
     -- vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
     vim.fn.glob(install_path .. "/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
 }
+
+local function find_root_dir()
+    return require("jdtls.setup").find_root({'.git', 'mvnw', 'gradlew'})
+end
 
 -- Needed for running/debugging unit tests
 --vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n"))
@@ -87,7 +93,7 @@ local config = {
     },
 
     -- we find the root directory by finding the source root. Otherwise it will cok up badly for multi-module projects
-    root_dir = require("jdtls.setup").find_root({ ".git" }),
+    root_dir = find_root_dir(),
 
     -- Here you can configure eclipse.jdt.ls specific settings
     -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -135,40 +141,41 @@ local config = {
                 enabled = true,
                 -- Formatting works by default, but you can refer to a specific file/URL if you choose
                 settings = {
-                        url = install_path .. "/extras/java-checkstyle.xml"
-                    },
-                },
-                completion = {
-                    favoriteStaticMembers = {
-                        "org.hamcrest.MatcherAssert.assertThat",
-                        "org.hamcrest.Matchers.*",
-                        "org.hamcrest.CoreMatchers.*",
-                        "org.junit.jupiter.api.Assertions.*",
-                        "java.util.Objects.requireNonNull",
-                        "java.util.Objects.requireNonNullElse",
-                        "org.mockito.Mockito.*",
-                    },
-                    importOrder = {
-                        "java",
-                        "javax",
-                        "com",
-                        "org",
-                    },
-                },
-                sources = {
-                    organizeImports = {
-                        starThreshold = 9999,
-                        staticStarThreshold = 9999,
-                    },
-                },
-                codeGeneration = {
-                    toString = {
-                        template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-                    },
-                    useBlocks = true,
+                    url = vim_config_dir .. "/extras/java-format.xml",
+                    profile = "SantanuStyle", 
                 },
             },
+            completion = {
+                favoriteStaticMembers = {
+                    "org.hamcrest.MatcherAssert.assertThat",
+                    "org.hamcrest.Matchers.*",
+                    "org.hamcrest.CoreMatchers.*",
+                    "org.junit.jupiter.api.Assertions.*",
+                    "java.util.Objects.requireNonNull",
+                    "java.util.Objects.requireNonNullElse",
+                    "org.mockito.Mockito.*",
+                },
+                importOrder = {
+                    "java",
+                    "javax",
+                    "com",
+                    "org",
+                },
+            },
+            sources = {
+                organizeImports = {
+                    starThreshold = 9999,
+                    staticStarThreshold = 9999,
+                },
+            },
+            codeGeneration = {
+                toString = {
+                    template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+                },
+                useBlocks = true,
+            },
         },
+    },
         -- Needed for auto-completion with method signatures and placeholders
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
         flags = {
@@ -189,7 +196,7 @@ local config = {
 
     local function run_java_app_with_args(opts)
         local jdtls_dap = require('jdtls.dap')
-        local root_dir = require('jdtls.setup').find_root({ ".git", "mvnw", "gradlew" })
+        local root_dir = find_root_dir()
         local config_dir = root_dir .. "/jdtls-run-configs"
         
         -- Determine config filename from command arguments or use default

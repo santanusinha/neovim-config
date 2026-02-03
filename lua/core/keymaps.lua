@@ -22,11 +22,11 @@ keymap.set("v", "<leader>/", "<Plug>(comment_toggle_blockwise_visual)", { desc =
 keymap.set("n", "<leader>w|", ":vsplit<CR>", { desc = "[W]indow Split [V]ertical" })
 keymap.set("n", "<leader>w_", ":split<CR>", { desc = "[W]indow Split [H]orizontal" })
 keymap.set("n", "<leader>w+", "<C-w>+", { desc = "[W]indow Split Height [P]lus" })
-keymap.set("n", "<leader>w-", "<C-w>-", { desc = "[W]indow Split Height [M]lus" })
+keymap.set("n", "<leader>w-", "<C-w>-", { desc = "[W]indow Split Height [M]inus" })
 keymap.set("n", "<leader>w=", "<C-w>=", { desc = "[W]indow Split Equal Width" })
-keymap.set("n", "<leader>w>", "<C-w>>5", { desc = "[W]indow Split Increase Width by 5" })
-keymap.set("n", "<leader>w<", "<C-w><5", { desc = "[W]indow Split Decrease Width by 5" })
-keymap.set("n", "<leader>wc", ":close<CR>", { desc = "[W]indow Split Decrease Width by 5" })
+keymap.set("n", "<leader>w>", "<C-w>>10", { desc = "[W]indow Split Increase Width by 5" })
+keymap.set("n", "<leader>w<", "<C-w><10", { desc = "[W]indow Split Decrease Width by 5" })
+keymap.set("n", "<leader>wc", ":close<CR>", { desc = "[W]indow [C]lose" })
 
 -- Tab Management
 keymap.set("n", "<leader>tn", ":tabnew<CR>", { desc = "[T]ab New" })
@@ -130,5 +130,10 @@ end, { desc = "[C]opilot [T]oggle" })
 vim.keymap.set('i', '<M-CR>', function()
     require("copilot.suggestion").accept()
 end, { desc = "Copilot Accept" })
+
+vim.keymap.set('i', '<M-Right>', function()
+    require("copilot.suggestion").accept_word()
+end, { desc = "Copilot Accept" })
+
 
 -- Filetype-specific keymaps are present in ftplugin/<filetype>.lua
