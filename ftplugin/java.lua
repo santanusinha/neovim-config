@@ -192,6 +192,15 @@ local config = {
     config["on_attach"] = function(client, bufnr)
         jdtls.setup_dap({ hotcodereplace = "auto" })
         require("jdtls.dap").setup_dap_main_class_configs()
+
+        -- Apply formatting synchronously before saving using jdtls
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr, async = false, id = client.id })
+                vim.notify("Formatted with jdtls", vim.log.levels.INFO)
+            end,
+        })
     end
 
     local function run_java_app_with_args(opts)
