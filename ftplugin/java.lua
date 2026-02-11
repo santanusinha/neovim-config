@@ -142,7 +142,7 @@ local config = {
                 -- Formatting works by default, but you can refer to a specific file/URL if you choose
                 settings = {
                     url = vim_config_dir .. "/extras/java-format.xml",
-                    profile = "SantanuStyle", 
+                    profile = "Santanu",
                 },
             },
             completion = {
