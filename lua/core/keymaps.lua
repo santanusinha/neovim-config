@@ -38,6 +38,9 @@ keymap.set("n", "<leader>t<", ":tabp<CR>", { desc = "[T]ab Close" })
 keymap.set("n", "<leader>b>", ":bn<CR>", { desc = "[B]uffer [N]ext" })
 keymap.set("n", "<leader>b<", ":bp<CR>", { desc = "[B]uffer [P]revious" })
 keymap.set("n", "<leader>bx", ":bd!<CR>", { desc = "[B]uffer [C]lose" })
+keymap.set("n", "<leader>ba", ":%bd!<CR>", { desc = "[B]uffer Close [A]ll (Return Home)" })
+keymap.set("n", "<leader>qa", ":%bd!<CR>", { desc = "[Q]uit [A]ll buffers (Return Home)" })
+keymap.set("n", "<leader>qq", ":qa<CR>", { desc = "[Q]uit Neovim" })
 keymap.set("n", "<leader>bl", require('telescope.builtin').buffers, { desc = "[B]uffer [L]ist" })
 
 -- Terminal
