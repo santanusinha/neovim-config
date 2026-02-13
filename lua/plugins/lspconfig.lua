@@ -55,8 +55,8 @@ return {
                 -- and will be called for each installed server that doesn't have
                 -- a dedicated handler.
                 function(server_name)
-                    -- Don't call setup for JDTLS Java LSP because it will be setup from a separate config
-                    if server_name ~= 'jdtls' then
+                    -- Don't call setup for JDTLS Java LSP or Marksman Markdown LSP because they will be setup from separate configs
+                    if server_name ~= 'jdtls' and server_name ~= 'marksman' then
                         vim.lsp.enable(server_name)
                     end
                 end,
