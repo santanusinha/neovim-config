@@ -50,7 +50,7 @@ keymap.set("n", "<leader>to", ":sp | resize 30 | terminal<CR>i", { desc = "[T]er
 -- We keep everything in the same file to ensure that we do not override
 
 -- NeoTree (lua/plugins/neo-tree.lua)
-keymap.set("n", "<S-t>", ":Neotree reveal<CR>", { desc = "[S]how [T]ree" })
+keymap.set("n", "<leader>tt", ":Neotree reveal<CR>", { desc = "[T]oggle [T]ree" })
 
 -- Telescope 
 keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = "[F]ind [F]iles" })
@@ -137,6 +137,31 @@ end, { desc = "Copilot Accept" })
 vim.keymap.set('i', '<M-Right>', function()
     require("copilot.suggestion").accept_word()
 end, { desc = "Copilot Accept" })
+
+-- Harpoon
+keymap.set("n", "<leader>ha", function()
+    require("harpoon"):list():add()
+end, { desc = "[H]arpoon [A]dd file" })
+
+keymap.set("n", "<leader>hh", function()
+    require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())
+end, { desc = "[H]arpoon [H]ome" })
+
+keymap.set("n", "<leader>h1", function()
+    require("harpoon"):list():select(1)
+end, { desc = "[H]arpoon file 1" })
+
+keymap.set("n", "<leader>h2", function()
+    require("harpoon"):list():select(2)
+end, { desc = "[H]arpoon file 2" })
+
+keymap.set("n", "<leader>h3", function()
+    require("harpoon"):list():select(3)
+end, { desc = "[H]arpoon file 3" })
+
+keymap.set("n", "<leader>h4", function()
+    require("harpoon"):list():select(4)
+end, { desc = "[H]arpoon file 4" })
 
 
 -- Filetype-specific keymaps are present in ftplugin/<filetype>.lua

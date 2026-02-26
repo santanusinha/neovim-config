@@ -1,6 +1,6 @@
 -- Reference: https://github.com/nvim-lualine/lualine.nvim
 -- A blazing fast and easy to configure Neovim statusline written in Lua.
-local colors = require("kanagawa.colors")
+local colors = require('github-theme.palette').load('github_dark_colorblind')
 
 return {
     'nvim-lualine/lualine.nvim',
@@ -51,15 +51,15 @@ return {
                 {
                     'branch',
                     icon = "",
-                    color = { fg = colors.fg, bg = colors.bg, gui = "bold" },
+                    color = { fg = colors.white.base, bg = colors.bg, gui = "bold" },
                 },
                 {
                     'diff',
                     sections = { added = " ", modified = " ", removed = " " },
                     diff_color = {
-                        added = { fg = colors.green },
+                        added = { fg = '#00ff00' },
                         modified = { fg = colors.orange },
-                        removed = { fg = colors.red },
+                        removed = { fg = '#ff0000' },
                     }
                 },
                 {
@@ -67,10 +67,10 @@ return {
                     symbols = { error = " ", warn = " ", info = " " },
                     diagnostics_color = {
                         -- Same values as the general color option can be used here.
-                        error = { fg = colors.red },
-                        warn  = { fg = colors.yellow },
-                        info  = { fg = colors.white },
-                        hint  = { fg = colors.cyan },
+                        error = { fg = '#ff0000' },
+                        warn  = { fg = colors.yellow.bright },
+                        info  = { fg = colors.white.bright },
+                        hint  = { fg = colors.cyan.bright },
                     },
                     colored = true,           -- Displays diagnostics status in color if set to true.
                     update_in_insert = false, -- Update diagnostics in insert mode.

@@ -5,6 +5,7 @@ return {
   "utilyre/barbecue.nvim",
   name = "barbecue",
   version = "*",
+  theme = 'github_dark_colorblind',
   dependencies = {
   -- https://github.com/SmiteshP/nvim-navic
     "SmiteshP/nvim-navic",

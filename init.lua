@@ -41,4 +41,3 @@ require("core.options") -- all options go to lua/core/options.lua
 require("core.keymaps") -- global keymaps go to lua/core/keymaps.lua
 require("core.autocmds")
 
-

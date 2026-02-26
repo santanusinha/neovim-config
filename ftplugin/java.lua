@@ -30,7 +30,14 @@ local bundles = {
 }
 
 local function find_root_dir()
-    return require("jdtls.setup").find_root({'.git', 'mvnw', 'gradlew'})
+    local markers = { '.jdtls_root', '.git', 'mvnw', 'gradlew', 'pom.xml' }
+    -- Find all instances of markers going up to the filesystem root
+    local results = vim.fs.find(markers, { upward = true, stop = vim.env.HOME, limit = math.huge })
+
+    -- The last result in the list is the highest directory (the true root)
+    local root = results[#results]
+    return root and vim.fs.dirname(root) or vim.fn.getcwd()
+    -- return require("jdtls.setup").find_root({'.jdtls_root', '.git', 'lombok.config', 'mvnw', 'gradlew', })
 end
 
 -- Needed for running/debugging unit tests
@@ -101,7 +108,7 @@ local config = {
         java = {
             -- TODO Replace this with the absolute path to your main java version (JDTLS requires JDK 21 or higher)
             --home = "/usr/lib/jvm/java-21-openjdk-amd64",
-            home = "/usr/lib/jvm/java-25-openjdk-amd64/",
+            home = "/usr/lib/jvm/java-21-openjdk-amd64/",
             eclipse = {
                 downloadSources = true,
             },
@@ -121,7 +128,15 @@ local config = {
                     {
                         name = "JavaSE-17",
                         path = "/usr/lib/jvm/java-17-openjdk-amd64",
-                    }
+                    },
+                    {
+                        name = "JavaSE-21",
+                        path = "/usr/lib/jvm/java-21-openjdk-amd64",
+                    },
+                    {
+                        name = "JavaSE-25",
+                        path = "/usr/lib/jvm/java-25-openjdk-amd64",
+                    },
                 },
             },
             maven = {
@@ -197,6 +212,12 @@ local config = {
         vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
             callback = function()
+                root = find_root_dir()
+                -- look for .prettierignore or .prettierignore in the root directory to determine if we should format or not
+                if vim.fn.filereadable(root .. "/.noformat") == 1 then
+                    vim.notify("Skipping format due to presence of .noformat file in project root", vim.log.levels.INFO)
+                    return
+                end
                 vim.lsp.buf.format({ bufnr = bufnr, async = false, id = client.id })
                 vim.notify("Formatted with jdtls", vim.log.levels.INFO)
             end,
