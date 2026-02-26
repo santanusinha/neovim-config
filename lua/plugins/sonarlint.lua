@@ -34,7 +34,9 @@ return {
                                 token = object["token"]
                             end
                         end
-                        vim.notify("Fetched token for " .. url .. ": " .. (token and "****" or "not found"), vim.log.levels.INFO)
+                        if token == nil then
+                            vim.notify("No credentials found for Sonar server: " .. url, vim.log.levels.WARN)
+                        end
                         return token
                     end
                 },
