@@ -64,6 +64,7 @@ keymap.set("n", '<C-M-v>', require('jdtls').extract_variable, { desc = "[J]ava E
 keymap.set("n", '<leader>jc', require('jdtls').extract_variable, { desc = "[J]ava Extract [C]onstant (Ctrl-Alt-c)"})
 keymap.set("n", '<C-M-c>', require('jdtls').extract_variable, { desc = "[J]ava Extract [C]onstant"})
 keymap.set("n", '<leader>jm', require('jdtls').extract_variable, { desc = "[J]ava Extract [M]ethod (Ctrl-Alt-m)"})
+keymap.set("v", '<leader>jm', require('jdtls').extract_variable, { desc = "[J]ava Extract [M]ethod (Ctrl-Alt-m)"})
 keymap.set("n", '<C-M-m>', require('jdtls').extract_variable, { desc = "[J]ava Extract [M]ethod"})
 
 -- Code generation
