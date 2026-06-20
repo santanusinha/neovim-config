@@ -6,19 +6,21 @@ return {
         "nvimtools/none-ls-extras.nvim",
     },
     config = function()
-        -- get access to the none-ls functions
         local null_ls = require("null-ls")
-        -- run the setup function for none-ls to setup our different formatters
-        null_ls.setup({
-            sources = {
-                -- setup lua formatter
-                null_ls.builtins.formatting.stylua,
-                -- setup eslint linter for javascript
-                require("none-ls.diagnostics.eslint_d"),
-                -- setup prettier to format languages that are not lua
-                null_ls.builtins.formatting.prettier
-            }
-        })
+        local sources = {}
 
+        local function add_source_if_executable(source, cmd)
+            if vim.fn.executable(cmd) == 1 then
+                table.insert(sources, source)
+            end
+        end
+
+        add_source_if_executable(null_ls.builtins.formatting.stylua, "stylua")
+        add_source_if_executable(require("none-ls.diagnostics.eslint_d"), "eslint_d")
+        add_source_if_executable(null_ls.builtins.formatting.prettier, "prettier")
+
+        null_ls.setup({
+            sources = sources,
+        })
     end
 }

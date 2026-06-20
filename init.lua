@@ -21,6 +21,10 @@ vim.opt.rtp:prepend(lazypath)
 -- TODO::Visit later
 vim.g.mapleader = " "
 
+-- Disable netrw early so file explorers (neo-tree) own directory buffers
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Declare a few options for lazy
 local opts = {
 	change_detection = {
@@ -40,4 +44,3 @@ require("lazy").setup("plugins", opts)
 require("core.options") -- all options go to lua/core/options.lua
 require("core.keymaps") -- global keymaps go to lua/core/keymaps.lua
 require("core.autocmds")
-

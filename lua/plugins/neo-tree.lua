@@ -14,6 +14,7 @@ return {
         statusline = false
     },
     filesystem = {
+      hijack_netrw_behavior = "disabled",
       filtered_items = {
         visible = true, -- when true, they will just be displayed differently (e.g. faded out)
         hide_dotfiles = false,
@@ -41,11 +42,6 @@ return {
     },
   },
   config = function(_, opts)
-    -- Disable default netrw file explorer
-    vim.g.loaded_netrw = 1
-    vim.g.loaded_netrwPlugin = 1
-
     require("neo-tree").setup(opts)
   end,
 }
-

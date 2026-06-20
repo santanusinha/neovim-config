@@ -47,6 +47,8 @@ return {
                 'lemminx',
                 'marksman',
                 'quick_lint_js',
+                'rust_analyzer',
+                'taplo',
                 'ts_ls',
                 'yamlls',
             },
@@ -55,8 +57,8 @@ return {
                 -- and will be called for each installed server that doesn't have
                 -- a dedicated handler.
                 function(server_name)
-                    -- Don't call setup for JDTLS Java LSP or Marksman Markdown LSP because they will be setup from separate configs
-                    if server_name ~= 'jdtls' and server_name ~= 'marksman' then
+                    -- Don't call setup for servers managed via ftplugin configs
+                    if server_name ~= 'jdtls' and server_name ~= 'marksman' and server_name ~= 'rust_analyzer' and server_name ~= 'taplo' then
                         vim.lsp.enable(server_name)
                     end
                 end,
@@ -81,6 +83,7 @@ return {
         require('mason-tool-installer').setup({
             -- Install these linters, formatters, debuggers automatically
             ensure_installed = {
+                'codelldb',
                 'java-debug-adapter',
                 'java-test',
             },
@@ -109,4 +112,3 @@ return {
 
     end
 }
-

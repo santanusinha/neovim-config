@@ -92,6 +92,32 @@ return {
         local dap = require('dap')
         require('dapui').setup(opts)
 
+        local mason_path = vim.fn.stdpath('data') .. '/mason'
+        local codelldb_path = mason_path .. '/bin/codelldb'
+
+        dap.adapters.codelldb = {
+            type = 'server',
+            port = '${port}',
+            executable = {
+                command = codelldb_path,
+                args = { '--port', '${port}' },
+            },
+        }
+
+        dap.configurations.rust = {
+            {
+                name = 'Debug executable (codelldb)',
+                type = 'codelldb',
+                request = 'launch',
+                program = function()
+                    return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+                end,
+                cwd = '${workspaceFolder}',
+                stopOnEntry = false,
+                args = {},
+            },
+        }
+
         -- Customize breakpoint signs
         vim.api.nvim_set_hl(0, "DapStoppedHl", { fg = "#98BB6C", bg = "#2A2A2A", bold = true })
         vim.api.nvim_set_hl(0, "DapStoppedLineHl", { bg = "#204028", bold = true })
@@ -162,4 +188,3 @@ return {
         }
     end
 }
-

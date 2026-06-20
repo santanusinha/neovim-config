@@ -23,9 +23,11 @@ opt.smartindent = true
 opt.breakindent = true
 
 -- Folding
-opt.foldlevel = 20
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- Utilize Treesitter folds
+opt.foldlevel = 99 -- keep folds open on file open
+opt.foldlevelstart = 99 -- start with all folds expanded
+opt.foldenable = true -- allow manual folding commands
 
 -- General Behaviors
 vim.g.loaded_netrw = 1
@@ -66,4 +68,3 @@ vim.diagnostic.config {
     underline = true,
     update_in_insert = false,
 }
-
