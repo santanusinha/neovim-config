@@ -49,6 +49,7 @@ opt.termguicolors = true -- enable term GUI colors
 opt.undofile = true -- enable persistent undo
 opt.updatetime = 100 -- set faster completion
 opt.writebackup = false -- prevent editing of files being edited elsewhere
+opt.timeoutlen = 200 -- time to wait for a mapped sequence to complete (in milliseconds)
 
 -- Cursor
 opt.cursorline = true -- highlight current line

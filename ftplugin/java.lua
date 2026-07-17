@@ -2,12 +2,23 @@
 local home = vim.env.HOME -- Get the home directory
 
 local jdtls = require("jdtls")
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local vim_config_dir = vim.fn.stdpath("config")
 local install_path = vim.fn.stdpath("data")
 local cache_path = vim.fn.stdpath("cache")
-local workspace_dir = cache_path .. "/jdtls-workspace/" .. project_name
 
+local function find_root_dir()
+    local markers = { '.jdtls_root', '.git', 'mvnw', 'gradlew', 'pom.xml' }
+    -- Find all instances of markers going up to the filesystem root
+    local results = vim.fs.find(markers, { upward = true, stop = vim.env.HOME, limit = math.huge })
+
+    -- The last result in the list is the highest directory (the true root)
+    local root = results[#results]
+    return root and vim.fs.dirname(root) or vim.fn.getcwd()
+    -- return require("jdtls.setup").find_root({'.jdtls_root', '.git', 'lombok.config', 'mvnw', 'gradlew', })
+end
+
+local project_name = vim.fn.fnamemodify(find_root_dir(), ":t")
+local workspace_dir = cache_path .. "/jdtls-workspace/" .. project_name
 
 local system_os = "linux"
 
@@ -29,16 +40,6 @@ local bundles = {
     vim.fn.glob(install_path .. "/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar"),
 }
 
-local function find_root_dir()
-    local markers = { '.jdtls_root', '.git', 'mvnw', 'gradlew', 'pom.xml' }
-    -- Find all instances of markers going up to the filesystem root
-    local results = vim.fs.find(markers, { upward = true, stop = vim.env.HOME, limit = math.huge })
-
-    -- The last result in the list is the highest directory (the true root)
-    local root = results[#results]
-    return root and vim.fs.dirname(root) or vim.fn.getcwd()
-    -- return require("jdtls.setup").find_root({'.jdtls_root', '.git', 'lombok.config', 'mvnw', 'gradlew', })
-end
 
 -- Needed for running/debugging unit tests
 --vim.list_extend(bundles, vim.split(vim.fn.glob(home .. "/.local/share/nvim/mason/share/java-test/*.jar", 1), "\n"))
